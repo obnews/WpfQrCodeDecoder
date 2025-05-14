@@ -62,23 +62,11 @@ namespace WpfQrCodeDecoder
             using (Bitmap bitmap = new Bitmap(imagePath))
             {
                 // Create a barcode reader instance
-                var reader = new ZXing.Windows.Compatibility.BarcodeReader
-                {
-                    Options = new ZXing.Common.DecodingOptions
-                    {
-                        TryHarder = true,
-                        PossibleFormats = new[] { BarcodeFormat.QR_CODE }
-                    }
-                };
-
-                // Decode the QR code
-                //var result = reader.Decode(bitmap);
-                // Decode the QR code
-                var luminanceSource = new ZXing.Windows.Compatibility.BitmapLuminanceSource(bitmap);
-                var result = reader.Decode(luminanceSource);
+                var reader = new ZXing.Windows.Compatibility.BarcodeReader();
+                var result = reader.Decode(bitmap);
 
                 // Return the decoded text (or null if not found)
-                return result?.Text;
+                return result?.Text ?? string.Empty;
             }
         }
     }
